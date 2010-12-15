@@ -1,0 +1,123 @@
+body {
+	margin:		1% 1%;
+	padding:	0;
+	border:		0;
+	width:		98%;
+	min-width:	600px;
+	background:	#fff;
+	font-size:	85%;
+	font-family:	sans-serif;
+	color:		#000;
+}
+
+a:link, a:visited {
+	text-decoration:	none;
+	color:			#57c;
+}
+a:hover {
+	text-decoration:	none;
+	color:			#7af;
+}
+
+#Top, #Menu {
+	clear:	both;
+	float:	left;
+	width:	100%;
+}
+
+#Top {
+	padding:	10px 0;
+	background:	#db4;
+	color:		#fff;
+	font-size:	100%;
+	font-weight:	bold;
+	text-align:	center;
+}
+
+#Menu {
+	background:	#000;
+	font-size:	85%;
+}
+#Menu ul {
+	width:		100%;
+	margin:		0;
+	padding:	0;
+}
+#Menu ul li {
+	display:	inline;
+}
+#Menu ul li a {
+	float:			left;
+	text-decoration:	none;
+	font-weight:		bold;
+	color:			#eee;
+	padding:		2px 8px;
+}
+#Menu ul li a:visited {
+	color:	#fff;
+}
+#Menu ul li a:hover {
+	color:		#fff;
+	background:	#a70;
+}
+#Menu ul li a#CURRENT {
+	color:		#fff;
+	background:	#07b;
+}
+
+#Container0 {
+	position:	relative;	/* omija bug ukrywania nadmiaru w IE7 */
+	clear:		both;
+	float:		left;
+	width:		100%;		/* szerokosc calej strony */
+	overflow:	hidden;		/* nie wyswietlamy wystajacych divow */
+
+	background:	#935;		/* tlo prawej kolumny */
+}
+
+#Container1 {
+	position:	relative;
+	float:		left;
+	width:		100%;
+
+	right:		20%;	/* szerokosc prawej kolumny */
+	background:	#f4f4ff;	/* tlo lewej kolumny */
+}
+
+#Left {
+	width:		78%;	/* margines 1% */
+	left:		21%;	/* Container1:right + 1 x margines*/
+	color:		#000;
+	text-align:	justify;
+}
+
+#Right {
+	width:		18%;	/* margines 1% */
+	left:		23%;	/* Container1:right + 3 x margines */
+	color:		#fff;
+	text-align:	center;
+	font-weight:	bold;
+}
+
+#Left, #Right {
+	float:		left;
+	position:	relative;
+	padding:	0.5em 0 1em 0;
+	overflow:	hidden;
+	/*border: 1px solid red;*/
+}
+
+#Bottom {
+	clear:		both;
+	width:		100%;
+	padding:	2px 0;
+	background:	#058;
+	color:		white;
+	text-align:	center;
+}
+
+#Commercial, #Info {
+	border: 1px solid white;
+	margin: 10px 0;
+	padding: 0.5em 0;
+}
