@@ -109,3 +109,6 @@ style sheet) in the *examples* directory.
     $ ./simple
 
 Next launch your browser and open url http://127.0.0.1:9999
+
+You can try [this link](http://195.74.48.3:9999/) first, if you're wondering
+whether or not to install kview.
