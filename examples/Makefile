@@ -1,12 +1,8 @@
 include $(GOROOT)/src/Make.inc
 
-ALL=simple
+TARG=simple
+GOFILES=\
+	simple.go\
+	chrootuid.go\
 
-all: $(ALL)
-
-clean:
-	rm -rf *.[68] $(ALL)
-
-%: %.go
-	$(GC) $*.go
-	$(LD) -o $@ $@.$O
+include $(GOROOT)/src/Make.cmd

@@ -3,6 +3,7 @@ package main
 import (
     "web"
     "kview"
+    "os"
 )
 
 
@@ -93,6 +94,10 @@ func edit(web_ctx *web.Context) {
 // Init and run
 
 func main() {
+    if len(os.Args) != 1 {
+        chrootuid()
+    }
+
     // Change kview default template directory and error handler
     //kview.TemplatesDir = "some_dir"
     //kview.ErrorExit = new_error_handler
@@ -100,5 +105,6 @@ func main() {
     viewInit()
     web.Get("/", home)
     web.Get("/edit", edit)
+    web.Config.StaticDir = "static"
     web.Run("0.0.0.0:9999")
 }
