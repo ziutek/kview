@@ -34,6 +34,7 @@ Example:
 
     // Create the first page as layout copy. It is efficient operation
     // (references are copied, not the data itself).
+
     home_view = layout.Copy()
 
     // Add page components
