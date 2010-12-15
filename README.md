@@ -12,7 +12,6 @@ Example:
     // Load site layout. 
 
     layout := kview.New("layout.kt")
-
     
     // Layout consists of two columns. The left column can contain very
     // different information. Therefore, for any page it will be defined by
@@ -46,8 +45,8 @@ Example:
     // Create the second page.
 
     edit_view = layout.Copy()
-    edit_view.Divs["Menu"] = menu
-    edit_view.Divs["Left"] = kview.New("left/edit.kt")
+    edit_view.Divs["Menu"]  = menu
+    edit_view.Divs["Left"]  = kview.New("left/edit.kt")
     edit_view.Divs["Right"] = right    
 
 The structure of the service is ready. You can publish it with web.go:
@@ -89,6 +88,14 @@ or http package:
         // ...
         http.ListenAndServe("0.0.0.0:80", nil)
     }
+
+In the template, nested blocks ar visable under the name you given them. You can
+render them using *Render* method (rather than *Nested* method in pure
+*kasia.go*):
+
+    <div id='Left'>$Left.Render(ctx.left)</div>
+    <div id='Right'>$Right.Render(ctx.right)</div>
+
 
 You can find a working example (one file with Go code, template tree and CSS
 style sheet) in the *examples* directory.
