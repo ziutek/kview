@@ -103,12 +103,15 @@ style sheet) in the *examples* directory.
 
 ## How to install and run example program
 
+Instal [kasia.go](http://github.com/ziutek/kasia.go/) first. Next instal
+*kview*:
+
     $ git clone git://github.com/ziutek/kview
     $ cd kview && make install
     $ cd examples && make
     $ ./simple
 
-Next launch your browser and open url http://127.0.0.1:9999
+Next launch your browser and open the URL: http://127.0.0.1:9999
 
 You can try [this link](http://195.74.48.3:9999/) first, if you're wondering
 whether or not to install kview.
