@@ -68,11 +68,13 @@ func home(web_ctx *web.Context) {
         ctx:   Ctx {
             menu: Menu{menu, 0},
             left: []string {
-                "This is a test service created with <em>kasia.go</em> " +
-                "and <em>kview</em>.",
+                "This is a test service created entirely in Go (golang) " +
+                "using <em>kasia.go</em>, <em>kview</em> and <em>web.go</em> " +
+                "packages.",
                 "Please select another menu item!",
             },
-            right: RightCtx{"Buy your new Home!"},
+            right: RightCtx{"The House is much better than a flat. " +
+                "So buy a new House today!"},
         },
     }
     home_view.Exec(web_ctx, tpl_ctx)
@@ -83,9 +85,17 @@ func edit(web_ctx *web.Context) {
         title : "Edit page",
         ctx   : Ctx {
             menu:  Menu{menu, 1},
-            left:  "Hello! You can modify this example." +
-                "This text is in <em>simple.go</em> file.",
-            right: RightCtx{"Buy new great Goedit editor!"},
+            left:  []string {
+                "Hello! You can modify this example.",
+                "Open <em>simple.go</em> file or some template file in your " +
+                "editor and edit it.",
+                "Then type: <code>$ make && ./simple</code>",
+            },
+            right: RightCtx{
+                "To modify this example you may download " +
+                "<a href='http://github.com/mikhailt/tabby'>tabby</a> source " +
+                "editor writen entirely in Go!",
+            },
         },
     }
     edit_view.Exec(web_ctx, tpl_ctx)

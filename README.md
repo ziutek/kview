@@ -103,7 +103,7 @@ style sheet) in the *examples* directory.
 
 ## How to install and run example program
 
-Instal [kasia.go](http://github.com/ziutek/kasia.go/) first. Next instal
+Instal [kasia.go](http://github.com/ziutek/kasia.go) first. Next instal
 *kview*:
 
     $ git clone git://github.com/ziutek/kview
