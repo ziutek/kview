@@ -9,46 +9,45 @@ can be a template defined in separate file.
 
 Example:
 
-    // Load site layout. 
+    // Web pages declared as global variables
+    var home_view, edit_view kview.View
 
-    layout := kview.New("layout.kt")
+    // Service creation (in main(), init() or other initialisation function)
+    func init() {
+        // Load site layout. 
+        layout := kview.New("layout.kt")
     
-    // Layout consists of two columns. The left column can contain very
-    // different information. Therefore, for any page it will be defined by
-    // the different template. The right column shows always the same type of
-    // information, so will be defined once for all pages. The same applies to
-    // the menu.
+        // Example layout consists of header, menu, two columns and footer. The
+        // left column can contain very different information. Therefore, for
+        // any page it will be defined by the different template. The right
+        // column shows always the same type of information, so will be defined
+        // once for all pages (the same applies to the menu).
 
-    // Load the menu
+        // Load the menu
+        menu := kview.New("menu.kt")
 
-    menu := kview.New("menu.kt")
+        // Load the right column
+        right  := kview.New("right.kt")
 
-    // Load the right column
+        // Add components of the right column
+        right.Div("Info",       kview.New("right/info.kt"))
+        right.Div("Commercial", kview.New("right/commercial.kt"))
 
-    right  := kview.New("right.kt")
+        // Create the first page as layout copy. It is efficient operation
+        // (references are copied, not the data itself).
+        home_view = layout.Copy()
 
-    // Add components of the right column
+        // Add page components
+        home_view.Div("Menu",  menu)
+        home_view.Div("Left",  kview.New("left/home.kt"))
+        home_view.Div("Right", right)
 
-    right.Divs["Info"]       = kview.New("right/info.kt")
-    right.Divs["Commercial"] = kview.New("right/commercial.kt")
-
-    // Create the first page as layout copy. It is efficient operation
-    // (references are copied, not the data itself).
-
-    home_view = layout.Copy()
-
-    // Add page components
-
-    home_view.Divs["Menu"]  = menu
-    home_view.Divs["Left"]  = kview.New("left/home.kt")
-    home_view.Divs["Right"] = right
-
-    // Create the second page.
-
-    edit_view = layout.Copy()
-    edit_view.Divs["Menu"]  = menu
-    edit_view.Divs["Left"]  = kview.New("left/edit.kt")
-    edit_view.Divs["Right"] = right    
+        // Create the second page.
+        edit_view = layout.Copy()
+        edit_view.Div("Menu",  menu)
+        edit_view.Div("Left",  kview.New("left/edit.kt")
+        edit_view.Div("Right", right)
+    }
 
 The structure of the service is ready. You can publish it with web.go:
 
@@ -96,7 +95,6 @@ render them using *Render* method (rather than *Nested* method in pure
 
     <div id='Left'>$Left.Render(ctx.left)</div>
     <div id='Right'>$Right.Render(ctx.right)</div>
-
 
 You can find a working example (one file with Go code, template tree and CSS
 style sheet) in the *examples* directory.

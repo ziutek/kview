@@ -7,8 +7,7 @@ import (
     "time"
 )
 
-
-var home_view, edit_view *kview.View
+var home_view, edit_view kview.View
 
 func viewInit() {
     layout := kview.New("layout.kt")
@@ -17,20 +16,20 @@ func viewInit() {
     // Create right column
     right  := kview.New("right.kt")
     // Add view components
-    right.Divs["Info"]       = kview.New("right/info.kt")
-    right.Divs["Commercial"] = kview.New("right/commercial.kt")
+    right.Div("Info",       kview.New("right/info.kt"))
+    right.Div("Commercial", kview.New("right/commercial.kt"))
 
     // Create home view as layout copy.
     home_view = layout.Copy()
-    home_view.Divs["Menu"]  = menu
-    home_view.Divs["Left"]  = kview.New("left/home.kt")
-    home_view.Divs["Right"] = right
+    home_view.Div("Menu",  menu)
+    home_view.Div("Left",  kview.New("left/home.kt"))
+    home_view.Div("Right", right)
 
     // Create edit view.
     edit_view = layout.Copy()
-    edit_view.Divs["Menu"] = menu
-    edit_view.Divs["Left"] = kview.New("left/edit.kt")
-    edit_view.Divs["Right"] = right
+    edit_view.Div("Menu",  menu)
+    edit_view.Div("Left",  kview.New("left/edit.kt"))
+    edit_view.Div("Right", right)
 }
 
 
@@ -64,11 +63,18 @@ var (
         MenuItem{"Home", "/"},
         MenuItem{"Edit", "/edit"},
     }
-    global_ctx = struct{started string; hits uint} {
+    global_ctx = struct{started, last_cli_addr string; hits uint} {
         time.LocalTime().Format("2006-01-02 15:04"),
+        "",
         0,
     }
 )
+
+func exec(web_ctx *web.Context, view kview.View, req_ctx interface{}) {
+    global_ctx.hits++
+    view.Exec(web_ctx, global_ctx, req_ctx)
+    global_ctx.last_cli_addr = web_ctx.RemoteAddr
+}
 
 func home(web_ctx *web.Context) {
     req_ctx := MainCtx {
@@ -81,12 +87,11 @@ func home(web_ctx *web.Context) {
                 "packages.",
                 "Please select another menu item!",
             },
-            right: RightCtx{"The House is much better than a flat. " +
+            right: RightCtx{"A house is much better than a flat. " +
                 "So buy a new House today!"},
         },
     }
-    global_ctx.hits++
-    home_view.Exec(web_ctx, global_ctx, req_ctx)
+    exec(web_ctx, home_view, req_ctx)
 }
 
 func edit(web_ctx *web.Context) {
@@ -107,8 +112,7 @@ func edit(web_ctx *web.Context) {
             },
         },
     }
-    global_ctx.hits++
-    edit_view.Exec(web_ctx, global_ctx, req_ctx)
+    exec(web_ctx, edit_view, req_ctx)
 }
 
 // Init and run

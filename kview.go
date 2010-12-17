@@ -18,17 +18,25 @@ var (
     }
 )
 
+type View interface {
+    Copy() View
+    Strict(bool)
+    Div(string, View)
+    Exec(io.Writer, ...interface{})
+    Render(...interface{}) *kasia.NestedTemplate
+}
+
 // View definition
-type View struct {
+type KView struct {
     name string
     tpl  *kasia.Template
-    Divs map[string]*View
+    divs map[string]View
 }
 
 // Returns a pointer to a page
-func New(name string) *View {
+func New(name string) *KView {
     var (
-        pg  View
+        pg  KView
         err os.Error
     )
     pg.name = name
@@ -36,24 +44,29 @@ func New(name string) *View {
     if err != nil {
         ErrorExit(name, err)
     }
-    pg.Divs = make(map[string]*View)
+    pg.divs = make(map[string]View)
     return &pg
 }
 
 // Returns a pointer to a copy of the page
-func (pg *View) Copy() *View {
+func (pg *KView) Copy() View {
     new_pg := *pg
-    // Make a copy of Divs map
-    new_pg.Divs = make(map[string]*View)
-    for k, v := range pg.Divs {
-        new_pg.Divs[k] = v
+    // Make a copy of divs map
+    new_pg.divs = make(map[string]View)
+    for k, v := range pg.divs {
+        new_pg.divs[k] = v
     }
     return &new_pg
 }
 
 // Set strig render flag
-func (pg *View) Strict(strict bool) {
+func (pg *KView) Strict(strict bool) {
     pg.tpl.Strict = strict
+}
+
+// Add subview
+func (pg *KView) Div(name string, view View) {
+    pg.divs[name] = view
 }
 
 func prepend(slice []interface{}, pre ...interface{}) (ret []interface{}) {
@@ -64,8 +77,8 @@ func prepend(slice []interface{}, pre ...interface{}) (ret []interface{}) {
 }
 
 // Render view to wr with data
-func (pg *View) Exec(wr io.Writer, ctx ...interface{}) {
-    ctx = prepend(ctx, pg.Divs)
+func (pg *KView) Exec(wr io.Writer, ctx ...interface{}) {
+    ctx = prepend(ctx, pg.divs)
     err := pg.tpl.Run(wr, ctx...)
     if err != nil {
         ErrorExit(pg.name, err)
@@ -73,7 +86,7 @@ func (pg *View) Exec(wr io.Writer, ctx ...interface{}) {
 }
 
 // Use this method in template text to render page inside other page.
-func (pg *View) Render(ctx ...interface{}) *kasia.NestedTemplate {
-    ctx = prepend(ctx, pg.Divs)
+func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
+    ctx = prepend(ctx, pg.divs)
     return pg.tpl.Nested(ctx...)
 }

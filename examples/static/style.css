@@ -4,6 +4,7 @@ body {
 	border:		0;
 	width:		98%;
 	min-width:	600px;
+	max-width:	1000px;
 	background:	#fff;
 	font-size:	85%;
 	font-family:	sans-serif;

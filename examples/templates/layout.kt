@@ -14,6 +14,8 @@
                 <div id='Right'>$Right.Render(ctx.right)</div>
             </div>
         </div>
-        <div id='Bottom'>Started: $started; Hits: $hits</div>
+        <div id='Bottom'>
+            Started: $started; Hits: $hits; Last client: $last_cli_addr
+        </div>
     </body>
 </html>
