@@ -101,10 +101,11 @@ render them using *Render* method (rather than *Nested* method in pure
 You can find a working example (one file with Go code, template tree and CSS
 style sheet) in the *examples* directory.
 
-## How to install and run example program
+## How to install and run example application
 
-Instal [kasia.go](http://github.com/ziutek/kasia.go) first. Next instal
-*kview*:
+Instal [web.go](http://github.com/hoisie/web.go) and
+[kasia.go](http://github.com/ziutek/kasia.go) first. Next instal *kview* and
+compile and run simple example application:
 
     $ git clone git://github.com/ziutek/kview
     $ cd kview && make install
@@ -113,5 +114,5 @@ Instal [kasia.go](http://github.com/ziutek/kasia.go) first. Next instal
 
 Next launch your browser and open the URL: http://127.0.0.1:9999
 
-You can try [this link](http://195.74.48.3:9999/) first, if you're wondering
-whether or not to install kview.
+You can try [this link](http://195.74.48.3:9999/) first, if you want to see a
+sample application in action.

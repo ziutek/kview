@@ -4,6 +4,7 @@ import (
     "web"
     "kview"
     "os"
+    "time"
 )
 
 
@@ -52,18 +53,25 @@ type Ctx struct {
     right RightCtx
 }
 
+
 type MainCtx struct {
     title string
     ctx   Ctx
 }
 
-var menu = []MenuItem{
-    MenuItem{"Home", "/"},
-    MenuItem{"Edit", "/edit"},
-}
+var (
+    menu = []MenuItem {
+        MenuItem{"Home", "/"},
+        MenuItem{"Edit", "/edit"},
+    }
+    global_ctx = struct{started string; hits uint} {
+        time.LocalTime().Format("2006-01-02 15:04"),
+        0,
+    }
+)
 
 func home(web_ctx *web.Context) {
-    tpl_ctx := MainCtx {
+    req_ctx := MainCtx {
         title: "Home page",
         ctx:   Ctx {
             menu: Menu{menu, 0},
@@ -77,11 +85,12 @@ func home(web_ctx *web.Context) {
                 "So buy a new House today!"},
         },
     }
-    home_view.Exec(web_ctx, tpl_ctx)
+    global_ctx.hits++
+    home_view.Exec(web_ctx, global_ctx, req_ctx)
 }
 
 func edit(web_ctx *web.Context) {
-    tpl_ctx := MainCtx {
+    req_ctx := MainCtx {
         title : "Edit page",
         ctx   : Ctx {
             menu:  Menu{menu, 1},
@@ -98,7 +107,8 @@ func edit(web_ctx *web.Context) {
             },
         },
     }
-    edit_view.Exec(web_ctx, tpl_ctx)
+    global_ctx.hits++
+    edit_view.Exec(web_ctx, global_ctx, req_ctx)
 }
 
 // Init and run
