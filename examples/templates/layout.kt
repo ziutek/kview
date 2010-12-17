@@ -14,6 +14,6 @@
                 <div id='Right'>$Right.Render(ctx.right)</div>
             </div>
         </div>
-        <div id='Bottom'>Service started: $started, hits: $hits</div>
+        <div id='Bottom'>Started: $started; Hits: $hits</div>
     </body>
 </html>
