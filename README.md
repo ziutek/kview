@@ -104,8 +104,8 @@ style sheet) in the *examples* directory.
 ## How to install and run example application
 
 Instal [web.go](http://github.com/hoisie/web.go) and
-[kasia.go](http://github.com/ziutek/kasia.go) first. Next instal *kview* and
-compile and run simple example application:
+[kasia.go](http://github.com/ziutek/kasia.go) first. Next instal *kview* and run
+example application:
 
     $ git clone git://github.com/ziutek/kview
     $ cd kview && make install
