@@ -12,8 +12,8 @@ Example:
     // Web pages declared as global variables
     var home_view, edit_view kview.View
 
-    // Service creation (in main(), init() or other initialisation function)
-    func init() {
+    // Create the web service hierarchy
+    func webInit() {
         // Load site layout. 
         layout := kview.New("layout.kt")
     
@@ -63,7 +63,7 @@ The structure of the service is ready. You can publish it with web.go:
     }
 
     func main() {
-        // ...
+	webInit()
         web.Get("/", home)
         web.Get("/edit", edit)
         web.Run("0.0.0.0:80")
@@ -82,7 +82,8 @@ or http package:
     }
 
     func main() {
-        // ...
+	webInit()
+
         http.HandleFunc("/", home)
         http.HandleFunc("/edit", edit)
         // ...
