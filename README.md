@@ -63,7 +63,8 @@ The structure of the service is ready. You can publish it with web.go:
     }
 
     func main() {
-	webInit()
+        webInit()
+
         web.Get("/", home)
         web.Get("/edit", edit)
         web.Run("0.0.0.0:80")
@@ -82,7 +83,7 @@ or http package:
     }
 
     func main() {
-	webInit()
+        webInit()
 
         http.HandleFunc("/", home)
         http.HandleFunc("/edit", edit)
