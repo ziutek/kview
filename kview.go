@@ -78,7 +78,8 @@ func prepend(slice []interface{}, pre ...interface{}) (ret []interface{}) {
 
 // Render view to wr with data
 func (pg *KView) Exec(wr io.Writer, ctx ...interface{}) {
-    ctx = prepend(ctx, pg.divs)
+    //ctx = prepend(ctx, pg.divs)
+    ctx = append(ctx, pg.divs)
     err := pg.tpl.Run(wr, ctx...)
     if err != nil {
         ErrorExit(pg.name, err)
@@ -95,6 +96,7 @@ func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
             return pg.tpl.Nested(append(ci, ctx[1:]...)...)
         }
     }
-    ctx = prepend(ctx, pg.divs)
+    //ctx = prepend(ctx, pg.divs)
+    ctx = append(ctx, pg.divs)
     return pg.tpl.Nested(ctx...)
 }

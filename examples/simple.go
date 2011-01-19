@@ -5,6 +5,7 @@ import (
     "kview"
     "os"
     "time"
+    "log"
 )
 
 var home_view, edit_view kview.View
@@ -118,8 +119,10 @@ func edit(web_ctx *web.Context) {
 // Init and run
 
 func main() {
-    if len(os.Args) != 1 {
-        chrootuid()
+    if len(os.Args) == 3 {
+        chrootuid(os.Args[1], os.Args[2])
+    } else if len(os.Args) != 1 {
+        log.Exitf("Usage: %s [DIRECTORY UID]\n", os.Args[0])
     }
 
     // Change kview default template directory and error handler
