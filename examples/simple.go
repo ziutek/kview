@@ -127,7 +127,7 @@ func main() {
 
     // Change kview default template directory and error handler
     //kview.TemplatesDir = "some_dir"
-    //kview.ErrorExit = new_error_handler
+    //kview.ErrorHandler = new_error_handler
 
     viewInit()
     web.Get("/", home)

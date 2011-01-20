@@ -13,8 +13,8 @@ var (
     TemplatesDir = "templates"
 
     // You can modify this, if want a different error handling.
-    ErrorExit = func(name string, err os.Error) {
-        log.Exitf("%%View '%s' error. %s\n", name, err.String())
+    ErrorHandler = func(name string, err os.Error) {
+        log.Printf("%%View '%s' error. %s\n", name, err.String())
     }
 )
 
@@ -42,7 +42,7 @@ func New(name string) *KView {
     pg.name = name
     pg.tpl, err = kasia.ParseFile(path.Join(TemplatesDir, name))
     if err != nil {
-        ErrorExit(name, err)
+        ErrorHandler(name, err)
     }
     pg.divs = make(map[string]View)
     return &pg
@@ -82,7 +82,7 @@ func (pg *KView) Exec(wr io.Writer, ctx ...interface{}) {
     ctx = prepend(ctx, pg.divs)
     err := pg.tpl.Run(wr, ctx...)
     if err != nil {
-        ErrorExit(pg.name, err)
+        ErrorHandler(pg.name, err)
     }
 }
 
