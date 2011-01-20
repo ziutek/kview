@@ -78,8 +78,8 @@ func prepend(slice []interface{}, pre ...interface{}) (ret []interface{}) {
 
 // Render view to wr with data
 func (pg *KView) Exec(wr io.Writer, ctx ...interface{}) {
-    //ctx = prepend(ctx, pg.divs)
-    ctx = append(ctx, pg.divs)
+    // Add divs to the bottom of the context stack
+    ctx = prepend(ctx, pg.divs)
     err := pg.tpl.Run(wr, ctx...)
     if err != nil {
         ErrorExit(pg.name, err)
@@ -89,14 +89,13 @@ func (pg *KView) Exec(wr io.Writer, ctx ...interface{}) {
 // Use this method in template text to render page inside other page.
 func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
     if len(ctx) > 0 {
+        // Check if render was called with full template context as first arg
         if ci, ok := ctx[0].(kasia.ContextItself); ok {
-            // Render was called with full template context as first argument
-            ci[0] = pg.divs // Change divs
-            // Append other parameters to the context before call Nested
-            return pg.tpl.Nested(append(ci, ctx[1:]...)...)
+            // Rearange context, remove old divs
+            ctx = append(ci[1:], ctx[1:])
         }
     }
-    //ctx = prepend(ctx, pg.divs)
-    ctx = append(ctx, pg.divs)
+    // Add divs to the bottom of the context stack
+    ctx = prepend(ctx, pg.divs)
     return pg.tpl.Nested(ctx...)
 }
