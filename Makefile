@@ -1,6 +1,6 @@
 include $(GOROOT)/src/Make.inc
 
-TARG=kview
+TARG=github.com/ziutek/kview
 GOFILES=\
 	kview.go\
 

@@ -16,7 +16,7 @@ Example:
     func webInit() {
         // Load site layout. 
         layout := kview.New("layout.kt")
-    
+
         // Example layout consists of header, menu, two columns and footer. The
         // left column can contain very different information. Therefore, for
         // any page it will be defined by the different template. The right
