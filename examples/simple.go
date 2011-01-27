@@ -1,11 +1,11 @@
 package main
 
 import (
-    "github.com/hoisie/web.go"
-    "kview"
     "os"
     "time"
     "log"
+    "github.com/hoisie/web.go"
+    "github.com/ziutek/kview"
 )
 
 var home_view, edit_view kview.View
