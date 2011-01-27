@@ -5,7 +5,7 @@ import (
     "io"
     "log"
     "path"
-    "kasia"
+    "github.com/ziutek/kasia.go"
 )
 
 var (

@@ -103,13 +103,21 @@ style sheet) in the *examples* directory.
 
 ## How to install and run example application
 
-Instal [web.go](http://github.com/hoisie/web.go) and
-[kasia.go](http://github.com/ziutek/kasia.go) first. Next instal *kview* and run
-example application:
+Instal [web.go](http://github.com/hoisie/web.go):
 
-    $ git clone git://github.com/ziutek/kview
-    $ cd kview && make install
-    $ cd examples && make
+    $ goinstall github.com/hoisie/web.go
+
+Next install *kview*:
+
+    $ goinstall github.com/ziutek/kview
+
+This command implicitly install [kasia.go](http://github.com/ziutek/kasia.go)
+too.
+
+Next you can build and run an example application:
+
+    $ cd $GOROOT/src/pkg/github.com/ziutek/kview/examples
+    $ make
     $ ./simple
 
 Next launch your browser and open the URL: http://127.0.0.1:9999
