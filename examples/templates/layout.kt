@@ -7,11 +7,11 @@
     </head>
     <body>
         <div id='Top'>Title of the page</div>
-        <div id='Menu'>$Menu.Render(ctx.menu)</div>
+        <div id='Menu'>$Menu.Render(menu)</div>
         <div id='Container0'>
             <div id='Container1'>
-                <div id='Left'>$Left.Render(ctx.left)</div>
-                <div id='Right'>$Right.Render(ctx.right)</div>
+                <div id='Left'>$Left.Render(left)</div>
+                <div id='Right'>$Right.Render(right)</div>
             </div>
         </div>
         <div id='Bottom'>

@@ -8,32 +8,6 @@ import (
     "github.com/ziutek/kview"
 )
 
-var home_view, edit_view kview.View
-
-func viewInit() {
-    layout := kview.New("layout.kt")
-    menu   := kview.New("menu.kt")
-
-    // Create right column
-    right  := kview.New("right.kt")
-    // Add view components
-    right.Div("Info",       kview.New("right/info.kt"))
-    right.Div("Commercial", kview.New("right/commercial.kt"))
-
-    // Create home view as layout copy.
-    home_view = layout.Copy()
-    home_view.Div("Menu",  menu)
-    home_view.Div("Left",  kview.New("left/home.kt"))
-    home_view.Div("Right", right)
-
-    // Create edit view.
-    edit_view = layout.Copy()
-    edit_view.Div("Menu",  menu)
-    edit_view.Div("Left",  kview.New("left/edit.kt"))
-    edit_view.Div("Right", right)
-}
-
-
 type MenuItem struct {
     name, url string
 }
@@ -48,15 +22,14 @@ type RightCtx struct {
 }
 
 type Ctx struct {
-    menu  Menu
-    left  interface{}
-    right RightCtx
-}
-
-
-type MainCtx struct {
+    // Title of the page
     title string
-    ctx   Ctx
+    // Navigation menu
+    menu  Menu
+    // Data for the left column of the page
+    left  interface{}
+    // Data for the right column of the page
+    right RightCtx
 }
 
 var (
@@ -64,6 +37,7 @@ var (
         MenuItem{"Home", "/"},
         MenuItem{"Edit", "/edit"},
     }
+    // Some global variables presented on the Web
     global_ctx = struct{started, last_cli_addr string; hits uint} {
         time.LocalTime().Format("2006-01-02 15:04"),
         "",
@@ -71,46 +45,44 @@ var (
     }
 )
 
+// Renders view and actualizes global context
 func exec(web_ctx *web.Context, view kview.View, req_ctx interface{}) {
     global_ctx.hits++
     view.Exec(web_ctx, global_ctx, req_ctx)
     global_ctx.last_cli_addr = web_ctx.RemoteAddr
 }
 
+// The home page handler
 func home(web_ctx *web.Context) {
-    req_ctx := MainCtx {
+    req_ctx := Ctx {
         title: "Home page",
-        ctx:   Ctx {
-            menu: Menu{menu, 0},
-            left: []string {
-                "This is a test service created entirely in Go (golang) " +
-                "using <em>kasia.go</em>, <em>kview</em> and <em>web.go</em> " +
-                "packages.",
-                "Please select another menu item!",
-            },
-            right: RightCtx{"A house is much better than a flat. " +
-                "So buy a new House today!"},
+        menu: Menu{menu, 0},
+        left: []string {
+            "This is a test service created entirely in Go (golang) using " +
+            "<em>kasia.go</em>, <em>kview</em> and <em>web.go</em> packages.",
+            "Please select another menu item!",
         },
+        right: RightCtx{"A house is much better than a flat. So buy a new " +
+            "House today!"},
     }
     exec(web_ctx, home_view, req_ctx)
 }
 
+// The Edit page handler
 func edit(web_ctx *web.Context) {
-    req_ctx := MainCtx {
+    req_ctx := Ctx {
         title : "Edit page",
-        ctx   : Ctx {
-            menu:  Menu{menu, 1},
-            left:  []string {
-                "Hello! You can modify this example.",
-                "Open <em>simple.go</em> file or some template file in your " +
-                "editor and edit it.",
-                "Then type: <code>$ make && ./simple</code>",
-            },
-            right: RightCtx{
-                "To modify this example you may download " +
-                "<a href='http://github.com/mikhailt/tabby'>tabby</a> source " +
-                "editor writen entirely in Go!",
-            },
+        menu:  Menu{menu, 1},
+        left:  []string {
+            "Hello! You can modify this example.",
+            "Open <em>simple.go</em> file or some template file in your " +
+            "editor and edit it.",
+            "Then type: <code>$ make && ./simple</code>",
+        },
+        right: RightCtx{
+            "To modify this example you may download " +
+            "<a href='http://github.com/mikhailt/tabby'>tabby</a> source " +
+            "editor writen entirely in Go!",
         },
     }
     exec(web_ctx, edit_view, req_ctx)
