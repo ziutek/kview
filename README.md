@@ -101,9 +101,10 @@ render them using *Render* method (rather than *Nested* method in pure
 You can find a working example (one file with Go code, template tree and CSS
 style sheet) in the *examples* directory.
 
-*New* function accepts additional parameters of type *map[string]interface{}*.
-You can use them to provide some useful functions/variables to your templates.
+*New* function accepts additional parameters of type `map[string]interface{}`.
+You can use them to provide some useful functions/variables for your templates.
 Two functions are provided by default:
+
 * `len(interface{}) int` - it returns length of array/slice or -1,
 * `printf(format string, a ...interface{}) string` - works like *fmt.Sprintf*
   (in fact it is *fmt.Sprintf*).
