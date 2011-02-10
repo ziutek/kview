@@ -106,7 +106,7 @@ You can use them to provide some useful functions/variables for your templates.
 Two functions are provided by default:
 
 * `len(interface{}) int` - it returns length of array/slice or -1,
-* `printf(format string, a ...interface{}) string` - works like *fmt.Sprintf*
+* `fmt(format string, a ...interface{}) string` - works like *fmt.Sprintf*
   (in fact it is *fmt.Sprintf*).
 
 ## How to install and run example application
