@@ -1,13 +1,15 @@
 ## What is *kview*
 
-Kview is simple wrapper for Kasia.go templates, which helps to modularize
-content of dynamic website. It allows you to easily describe the relationship
-between modules of your website.
+Kview is simple but useful wrapper for
+[Kasia.go](https://github.com/ziutek/kasia.go) templates, which helps to
+modularize content of dynamic website. It allows you to easily describe the
+relationship between modules of your website.
 
 #### Build the structure of your web service
 
-You can build the web page from the blocks directly in your Go code. Every block
-can be a template defined in separate file.
+You can build a web page from blocks. Every block is associated with different
+template file. Use separate file for this to be compliant with the idea to
+separate application logic from its user interface (viev in MVC terminology).
 
 Example:
 
@@ -49,10 +51,6 @@ Example:
         edit_view.Div("Menu",  menu)
         edit_view.Div("Left",  kview.New("left/edit.kt")
         edit_view.Div("Right", right)
-    }
-
-    var utils = map[string]interface{} {
-        
     }
 
 The structure of the service is ready. The (optional) *utils* variable used in
