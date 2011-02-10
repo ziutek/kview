@@ -121,5 +121,5 @@ var utils = map[string]interface{} {
         }
         return -1
     },
-    "printf": fmt.Sprintf,
+    "fmt": fmt.Sprintf,
 }
