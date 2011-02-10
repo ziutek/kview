@@ -4,6 +4,8 @@ Kview is simple wrapper for Kasia.go templates, which helps to modularize
 content of dynamic website. It allows you to easily describe the relationship
 between modules of your website.
 
+#### Build the structure of your web service
+
 You can build the web page from the blocks directly in your Go code. Every block
 can be a template defined in separate file.
 
@@ -39,7 +41,7 @@ Example:
 
         // Add page components
         home_view.Div("Menu",  menu)
-        home_view.Div("Left",  kview.New("left/home.kt"))
+        home_view.Div("Left",  kview.New("left/home.kt", utils))
         home_view.Div("Right", right)
 
         // Create the second page.
@@ -49,7 +51,37 @@ Example:
         edit_view.Div("Right", right)
     }
 
-The structure of the service is ready. You can publish it with web.go:
+    var utils = map[string]interface{} {
+        
+    }
+
+The structure of the service is ready. The (optional) *utils* variable used in
+*Left* div may contains your utility functions/variables:
+
+    var utils = map[string]interface{} {
+        "contains": strings.Contains,
+        "add": func(a, b int) int {return a + b},
+    }
+
+You can use them in *left/home.kt* template as follows:
+
+    $a + 11 = $add(a, 11)
+
+    $if contains(s, "abc"):
+        The s variable contains 'abc' substring.
+    $else:
+        The s doesn't contain 'abc' substring.
+    $end
+
+Two useful functions are provided by default:
+
+* `len(interface{}) int` - it returns length of array/slice or -1,
+* `fmt(format string, a ...interface{}) string` - works like *fmt.Sprintf*
+  (in fact it is *fmt.Sprintf*).
+
+#### Publishing your web service
+
+To publish the service created with *kview* you can use the *web.go* framework:
 
     func home(web_ctx *web.Context) {
         // ...
@@ -70,7 +102,7 @@ The structure of the service is ready. You can publish it with web.go:
         web.Run("0.0.0.0:80")
     }
 
-or http package:
+the *http* package:
 
     func home(con http.ResponseWriter, req *http.Request) {
         // ...
@@ -91,23 +123,22 @@ or http package:
         http.ListenAndServe("0.0.0.0:80", nil)
     }
 
-In the template, nested blocks ar visable under the name you given them. You can
-render them using *Render* method (rather than *Nested* method in pure
+or other available framework like *twister*.
+
+In the template, nested blocks are visible under the name you given them. You
+can render them using *Render* method (rather than *Nested* method in pure
 *kasia.go*):
 
     <div id='Left'>$Left.Render(ctx.left)</div>
     <div id='Right'>$Right.Render(ctx.right)</div>
 
-You can find a working example (one file with Go code, template tree and CSS
-style sheet) in the *examples* directory.
+You can find a working example in the *examples* directory. This simple application consists of:
 
-*New* function accepts additional parameters of type `map[string]interface{}`.
-You can use them to provide some useful functions/variables for your templates.
-Two functions are provided by default:
-
-* `len(interface{}) int` - it returns length of array/slice or -1,
-* `fmt(format string, a ...interface{}) string` - works like *fmt.Sprintf*
-  (in fact it is *fmt.Sprintf*).
+* three files with Go code (the *chrootuid.go* file is irrelevant for our
+  considerations - contains code for change application root directory and its
+  privileges),
+* templates tree (in *templates* directory),
+* CSS style sheet (in *static* directory).
 
 ## How to install and run example application
 
