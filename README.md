@@ -69,7 +69,7 @@ The structure of the service is ready. You can publish it with web.go:
         web.Get("/edit", edit)
         web.Run("0.0.0.0:80")
     }
-    
+
 or http package:
 
     func home(con http.ResponseWriter, req *http.Request) {
@@ -100,6 +100,13 @@ render them using *Render* method (rather than *Nested* method in pure
 
 You can find a working example (one file with Go code, template tree and CSS
 style sheet) in the *examples* directory.
+
+*New* function accepts additional parameters of type *map[string]interface{}*.
+You can use them to provide some useful functions/variables to your templates.
+Two functions are provided by default:
+* `len(interface{}) int` - it returns length of array/slice or -1,
+* `printf(format string, a ...interface{}) string` - works like *fmt.Sprintf*
+  (in fact it is *fmt.Sprintf*).
 
 ## How to install and run example application
 

@@ -5,6 +5,8 @@ import (
     "io"
     "log"
     "path"
+    "reflect"
+    "fmt"
     "github.com/ziutek/kasia.go"
 )
 
@@ -28,13 +30,13 @@ type View interface {
 
 // View definition
 type KView struct {
-    name string
-    tpl  *kasia.Template
-    divs map[string]View
+    name    string
+    tpl     *kasia.Template
+    globals map[string]interface{}
 }
 
 // Returns a pointer to a page
-func New(name string) *KView {
+func New(name string, globals ...map[string]interface{}) *KView {
     var (
         pg  KView
         err os.Error
@@ -44,17 +46,27 @@ func New(name string) *KView {
     if err != nil {
         ErrorHandler(name, err)
     }
-    pg.divs = make(map[string]View)
+    pg.globals = make(map[string]interface{})
+    // First some default utils
+    for k, v := range utils {
+        pg.globals[k] = v
+    }
+    // globals may redefine utils
+    for _, g := range globals {
+        for k, v := range g {
+            pg.globals[k] = v
+        }
+    }
     return &pg
 }
 
 // Returns a pointer to a copy of the page
 func (pg *KView) Copy() View {
     new_pg := *pg
-    // Make a copy of divs map
-    new_pg.divs = make(map[string]View)
-    for k, v := range pg.divs {
-        new_pg.divs[k] = v
+    // Make a copy of globals
+    new_pg.globals = make(map[string]interface{})
+    for k, v := range pg.globals {
+        new_pg.globals[k] = v
     }
     return &new_pg
 }
@@ -66,7 +78,7 @@ func (pg *KView) Strict(strict bool) {
 
 // Add subview
 func (pg *KView) Div(name string, view View) {
-    pg.divs[name] = view
+    pg.globals[name] = view
 }
 
 func prepend(slice []interface{}, pre ...interface{}) (ret []interface{}) {
@@ -78,8 +90,8 @@ func prepend(slice []interface{}, pre ...interface{}) (ret []interface{}) {
 
 // Render view to wr with data
 func (pg *KView) Exec(wr io.Writer, ctx ...interface{}) {
-    // Add divs to the bottom of the context stack
-    ctx = prepend(ctx, pg.divs)
+    // Add globals to the bottom of the context stack
+    ctx = prepend(ctx, pg.globals)
     err := pg.tpl.Run(wr, ctx...)
     if err != nil {
         ErrorHandler(pg.name, err)
@@ -91,11 +103,23 @@ func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
     if len(ctx) > 0 {
         // Check if render was called with full template context as first arg
         if ci, ok := ctx[0].(kasia.ContextItself); ok {
-            // Rearange context, remove old divs
+            // Rearange context, remove old globals
             ctx = append(ci[1:], ctx[1:])
         }
     }
-    // Add divs to the bottom of the context stack
-    ctx = prepend(ctx, pg.divs)
+    // Add globals to the bottom of the context stack
+    ctx = prepend(ctx, pg.globals)
     return pg.tpl.Nested(ctx...)
+}
+
+
+// Some useful functions for globals
+var utils = map[string]interface{} {
+    "len": func(a interface{}) int {
+        if v, ok := reflect.NewValue(a).(reflect.ArrayOrSliceValue); ok {
+            return v.Len()
+        }
+        return -1
+    },
+    "printf": fmt.Sprintf,
 }
