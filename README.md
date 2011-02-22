@@ -8,8 +8,7 @@ relationship between modules of your website.
 #### Build the structure of your web service
 
 You can build a web page from blocks. Every block is associated with different
-template file. Use separate file for this to be compliant with the idea to
-separate application logic from its user interface (viev in MVC terminology).
+template file.
 
 Example:
 
