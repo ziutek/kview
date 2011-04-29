@@ -13,7 +13,7 @@ var uid, gid int
 
 func chrootuid(dir, user string) {
     pw_filename := "/etc/passwd"
-    pwf, err := os.Open(pw_filename, os.O_RDONLY, 0)
+    pwf, err := os.Open(pw_filename)
     if err != nil {
         log.Fatalf("%%Can't open %s: %s", pw_filename, err)
     }

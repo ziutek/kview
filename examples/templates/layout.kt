@@ -3,19 +3,19 @@
     <head>
         <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
         <link href='style.css' type='text/css' rel='stylesheet'>
-        <title>$title</title>
+        <title>$Title</title>
     </head>
     <body>
         <div id='Top'>Title of the page</div>
-        <div id='Menu'>$Menu.Render(menu)</div>
+        <div id='Menu'>$menu.Render(Menu)</div>
         <div id='Container0'>
             <div id='Container1'>
-                <div id='Left'>$Left.Render(left)</div>
-                <div id='Right'>$Right.Render(right)</div>
+                <div id='Left'>$left.Render(Left)</div>
+                <div id='Right'>$right.Render(Right)</div>
             </div>
         </div>
         <div id='Bottom'>
-            Started: $started; Hits: $hits; Last client: $last_cli_addr
+            Started: $Started; Hits: $Hits; Last client: $LastCliAddr
         </div>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <ul>
-$for i, v in content:
-    <li><a href='$v.url'$if i==selected: id='CURRENT'$end>$v.name</a></li>
+$for i, v in Content:
+    <li><a href='$v.Url'$if i==Selected: id='CURRENT'$end>$v.Name</a></li>
 $end
 </ul>

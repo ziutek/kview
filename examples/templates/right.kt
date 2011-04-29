@@ -1,2 +1,2 @@
-<div id='Info'>$Info.Render()</div>
-<div id='Commercial'>$Commercial.Render(commercial)</div>
+<div id='Info'>$info.Render()</div>
+<div id='Commercial'>$commercial.Render(Commercial)</div>

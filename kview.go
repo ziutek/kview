@@ -116,7 +116,8 @@ func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
 // Some useful functions for globals
 var utils = map[string]interface{} {
     "len": func(a interface{}) int {
-        if v, ok := reflect.NewValue(a).(reflect.ArrayOrSliceValue); ok {
+        v := reflect.ValueOf(a)
+        if v.Kind() == reflect.Array || v.Kind() == reflect.Slice {
             return v.Len()
         }
         return -1

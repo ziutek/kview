@@ -11,18 +11,18 @@ func viewInit() {
     // Create right column
     right  := kview.New("right.kt")
     // Add view components
-    right.Div("Info",       kview.New("right/info.kt"))
-    right.Div("Commercial", kview.New("right/commercial.kt"))
+    right.Div("info",       kview.New("right/info.kt"))
+    right.Div("commercial", kview.New("right/commercial.kt"))
 
     // Create home view as layout copy.
     home_view = layout.Copy()
-    home_view.Div("Menu",  menu)
-    home_view.Div("Left",  kview.New("left/home.kt"))
-    home_view.Div("Right", right)
+    home_view.Div("menu",  menu)
+    home_view.Div("left",  kview.New("left/home.kt"))
+    home_view.Div("right", right)
 
     // Create edit view.
     edit_view = layout.Copy()
-    edit_view.Div("Menu",  menu)
-    edit_view.Div("Left",  kview.New("left/edit.kt"))
-    edit_view.Div("Right", right)
+    edit_view.Div("menu",  menu)
+    edit_view.Div("left",  kview.New("left/edit.kt"))
+    edit_view.Div("right", right)
 }
