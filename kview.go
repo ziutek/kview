@@ -1,3 +1,4 @@
+// Wrapper for kasia.go templates designed for easy writing web applications.
 package kview
 
 import (
