@@ -48,11 +48,11 @@ func New(name string, globals ...map[string]interface{}) *KView {
         ErrorHandler(name, err)
     }
     pg.globals = make(map[string]interface{})
-    // First some default utils
-    for k, v := range utils {
+    // First some default globals
+    for k, v := range Globals {
         pg.globals[k] = v
     }
-    // globals may redefine utils
+    // globals may default
     for _, g := range globals {
         for k, v := range g {
             pg.globals[k] = v
@@ -114,8 +114,10 @@ func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
 }
 
 
-// Some useful functions for globals
-var utils = map[string]interface{} {
+// Some useful functions for globals.
+// You can add there your functions/variables which will be visable in any
+// view. See also globals parameter in New function.
+var Globals = map[string]interface{} {
     "len": func(a interface{}) int {
         v := reflect.ValueOf(a)
         if v.Kind() == reflect.Array || v.Kind() == reflect.Slice {
