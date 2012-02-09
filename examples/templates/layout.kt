@@ -1,8 +1,8 @@
-<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
-<html>
+<!doctype html>
+<html lang=en>
     <head>
-        <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
-        <link href='style.css' type='text/css' rel='stylesheet'>
+		<meta charset='utf-8'>
+        <link href='/static/style.css' type='text/css' rel='stylesheet'>
         <title>$Title</title>
     </head>
     <body>
