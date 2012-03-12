@@ -2,12 +2,12 @@
 package kview
 
 import (
+	"fmt"
+	"github.com/ziutek/kasia.go"
 	"io"
 	"log"
 	"path"
 	"reflect"
-	"fmt"
-	"github.com/ziutek/kasia.go"
 )
 
 var (
@@ -118,7 +118,7 @@ func (pg *KView) Render(ctx ...interface{}) *kasia.NestedTemplate {
 var Globals = map[string]interface{}{
 	"len": func(a interface{}) int {
 		v := reflect.ValueOf(a)
-		if v.Kind() == reflect.Array || v.Kind() == reflect.Slice {
+		if v.Kind() == reflect.Array || v.Kind() == reflect.Slice || v.Kind() == reflect.String {
 			return v.Len()
 		}
 		return -1
