@@ -57,12 +57,12 @@ The structure of the service is ready. The (optional) *utils* variable used in
 
     var utils = map[string]interface{} {
         "contains": strings.Contains,
-        "add": func(a, b int) int {return a + b},
+        "addf": func(a, b float64) float64 {return a + b},
     }
 
 You can use them in *left/home.kt* template as follows:
 
-    $a + 11 = $add(a, 11)
+    $a + 11.0 = $add(a, 11.0)
 
     $if contains(s, "abc"):
         The s variable contains 'abc' substring.
