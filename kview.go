@@ -124,4 +124,28 @@ var Globals = map[string]interface{}{
 		return -1
 	},
 	"fmt": fmt.Sprintf,
+	"add": func(a, b int) int {
+		return a + b
+	},
+	"sub": func(a, b int) int {
+		return a - b
+	},
+	"mul": func(a, b int) int {
+		return a * b
+	},
+	"div": func(a, b int) int {
+		return a / b
+	},
+	"mod": func(a, b int) int {
+		return a % b
+	},
+	"and": func(a, b bool) bool {
+		return a && b
+	},
+	"or": func(a, b bool) bool {
+		return a || b
+	},
+	"not": func(a bool) bool {
+		return !a
+	},
 }

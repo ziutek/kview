@@ -70,11 +70,14 @@ You can use them in *left/home.kt* template as follows:
         The s doesn't contain 'abc' substring.
     $end
 
-Two useful functions are provided by default:
+Some useful functions are provided by default:
 
 * `len(interface{}) int` - it returns length of array/slice or -1,
 * `fmt(format string, a ...interface{}) string` - works like *fmt.Sprintf*
-  (in fact it is *fmt.Sprintf*).
+  (in fact it is *fmt.Sprintf*),
+* `add, sub, mul, div, mod (a, b int) int` - arithmetic operations,
+* `and, or (a, b bool)`, `not(a bool) bool` - logical operations.
+
 
 #### Publishing your web service
 
