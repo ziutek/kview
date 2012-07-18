@@ -32,7 +32,7 @@ Example:
         // Load the right column
         right  := kview.New("right.kt")
 
-        // Add components of the right column
+        // Add components to the right column
         right.Div("Info",       kview.New("right/info.kt"))
         right.Div("Commercial", kview.New("right/commercial.kt"))
 
@@ -58,11 +58,12 @@ The structure of the service is ready. The (optional) *utils* variable used in
     var utils = map[string]interface{} {
         "contains": strings.Contains,
         "addf": func(a, b float64) float64 {return a + b},
+		"pi": 3.14159,
     }
 
 You can use them in *left/home.kt* template as follows:
 
-    $a + 11.0 = $addf(a, 11.0)
+    $a + $pi = $addf(a, pi)
 
     $if contains(s, "abc"):
         The s variable contains 'abc' substring.
