@@ -62,7 +62,7 @@ The structure of the service is ready. The (optional) *utils* variable used in
 
 You can use them in *left/home.kt* template as follows:
 
-    $a + 11.0 = $add(a, 11.0)
+    $a + 11.0 = $addf(a, 11.0)
 
     $if contains(s, "abc"):
         The s variable contains 'abc' substring.
