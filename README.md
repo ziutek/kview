@@ -76,6 +76,7 @@ Some useful functions are provided by default:
 * `len(interface{}) int` - it returns length of array/slice or -1,
 * `fmt(format string, a ...interface{}) string` - works like *fmt.Sprintf*
   (in fact it is *fmt.Sprintf*),
+* `join(a []string, sep string) string` - works like *strings.Join*,
 * `add, sub, mul, div, mod (a, b int) int` - arithmetic operations,
 * `and, or (a, b bool)`, `not(a bool) bool` - logical operations.
 

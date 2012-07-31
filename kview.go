@@ -8,6 +8,7 @@ import (
 	"log"
 	"path"
 	"reflect"
+	"strings"
 )
 
 var (
@@ -124,6 +125,7 @@ var Globals = map[string]interface{}{
 		return -1
 	},
 	"fmt": fmt.Sprintf,
+	"join" : strings.Join,
 	"add": func(a, b int) int {
 		return a + b
 	},
