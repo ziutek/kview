@@ -15,7 +15,7 @@ var (
 	// You can modify this, if you store templates in a different directory.
 	TemplatesDir = "templates"
 
-	// You can modify this, if want a different error handling.
+	// You can modify this, if you want a different error handling.
 	ErrorHandler = func(name string, err error) {
 		log.Printf("%%View '%s' error. %s\n", name, err.Error())
 	}
@@ -36,7 +36,7 @@ type KView struct {
 	globals map[string]interface{}
 }
 
-// Returns a pointer to a page
+// Returns a pointer to the page
 func New(name string, globals ...map[string]interface{}) *KView {
 	var (
 		pg  KView
@@ -61,7 +61,7 @@ func New(name string, globals ...map[string]interface{}) *KView {
 	return &pg
 }
 
-// Returns a pointer to a copy of the page
+// Returns a copy of the page
 func (pg *KView) Copy() View {
 	new_pg := *pg
 	// Make a copy of globals
@@ -72,7 +72,7 @@ func (pg *KView) Copy() View {
 	return &new_pg
 }
 
-// Set strig render flag
+// Set the strict render flag
 func (pg *KView) Strict(strict bool) {
 	pg.tpl.Strict = strict
 }
